@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <title>Document</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Flotilla de carros</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-title">
+                            <h3 style="text-align: center; margin-top: 15px;">Registro de vehículos</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="/add" method="post">
+                                <div class="form-group">
+                                    <label for="marca" class="form-label">Marca</label>
+                                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Marca" required>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="modelo" class="form-label">Modelo</label>
+                                    <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Modelo" required>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="annum" class="form-label">Año</label>
+                                    <input type="number" class="form-control" id="annum" name="annum" placeholder="Año" required>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="placa" class="form-label">Placa</label>
+                                    <input type="text" class="form-control" id="placa" name="placa" placeholder="P-KJL564" pattern="[A-Z]{1}-[A-Z]{3}[0-9]{3}"  minlength="8" maxlength="8"  required>
+                                </div><br>
+                                <div class="form-group">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select class="form-select" id="estado" name="estado" required>
+                                        <option selected disabled=""> Selecciona una opción </option>
+                                        <option value="Perfecto">Perfecto</option>
+                                        <option value="Daño menor">Daño menor</option>
+                                        <option value="Reperación urgente">Reperación urgente</option>
+                                        <option value="En reperación">En reperación</option>
+                                        <option value="Descarte">Descarte</option>
+                                    </select>
+                                </div><br>
+                                <button type="submit" class="btn btn-success" style="width: 100%;">Submit</button> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Marca</th>
+                              <th scope="col">Modelo</th>
+                              <th scope="col">Año</th>
+                              <th scope="col">Placa</th>
+                              <th scope="col">Estado</th>
+                              <th scope="col">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% if(data){ %>
+                                <% for(var i = 0; i < data.length; i++){ %>
+                                    <tr>
+                                        <td><%= data[i].id %></td>
+                                        <td><%= data[i].marca %></td>
+                                        <td><%= data[i].modelo %></td>
+                                        <td><%= data[i].annum %></td>
+                                        <td><%= data[i].placa %></td>
+                                        <td><%= data[i].estado %></td>
+                                        <td>
+                                            <a href="/update/<%= data[i].id %>" class="btn btn-info"> Update </a>
+                                            <a href="/delete/<%= data[i].id %>" class="btn btn-danger"> Delete </a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% } %>
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
